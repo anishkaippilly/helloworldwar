@@ -9,7 +9,7 @@
 	<description>Simplest possible Java Webapp</description>
 
 	<build>
-		<finalName>helloworldwar</finalName>
+		<finalName>hello-world-war</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
