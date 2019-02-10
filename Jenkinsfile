@@ -23,7 +23,11 @@ pipeline {
                 TOMCAT_URL = credentials('tomcat-url')
             }
             steps {
-                sh 'curl -s --upload-file ${WORKSPACE}/target/argentum-web.war "http://${TOMCAT_CREDS_USR}:${TOMCAT_CREDS_PSW}@${TOMCAT_URL}:8080/manager/text/deploy?path=/argentum-web&update=true"'
+#                sh 'curl -s --upload-file ${WORKSPACE}/target/argentum-web.war "http://${TOMCAT_CREDS_USR}:${TOMCAT_CREDS_PSW}@${TOMCAT_URL}:8080/manager/text/deploy?path=/argentum-web&update=true"'
+                sh 'docker build -t anishkaippilly/tomcat .'
+		sh 'docker stop tomcat'
+		sh 'docker rm tomcat'
+		sh 'docker run -d -p 8090:8080 --name tomcat anishkaippilly/tomcat'
             }
         }
     }
