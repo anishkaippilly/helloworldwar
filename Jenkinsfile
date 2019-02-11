@@ -39,6 +39,8 @@ pipeline {
    stage('Docker Purge') {
      steps {
      sh 'docker image prune -fa'
+     sh 'docker stop tomcat'
+     sh 'docker rm tomcat -f'
      deleteDir()
      }
    }
