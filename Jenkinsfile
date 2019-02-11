@@ -9,12 +9,12 @@ pipeline {
         maven 'MVN'
     }
     stages {
-        stage('01 - Test'){
+        stage('01 - Test') {
             steps {
                 git url: 'https://github.com/anishkaippilly/helloworldwar'
                 sh 'mvn clean test'
                 cleanWs()
-	        }
+	    }
         }
         stage('02 - Package') {
             steps {
