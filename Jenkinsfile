@@ -19,7 +19,7 @@ pipeline {
         }
         stage('03 - Build Image') {
 	    environment {
- 	    registry = "anishkaippilly/tomcat-workshop"
+ 	    registry = 'anishkaippilly/tomcat-workshop'
     	    registryCredential = ‘dockerhub’
 	    dockerImage = ''
 	    }
@@ -28,6 +28,7 @@ pipeline {
 		script {
 			docker.build registry + ":$BUILD_NUMBER"
 		}
+	    }
     	stage('04 - Deploy Image') {
       	     steps{
         	script {
