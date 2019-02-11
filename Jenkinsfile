@@ -9,7 +9,8 @@ pipeline {
                 git url: 'https://github.com/anishkaippilly/helloworldwar'
                 sh 'mvn clean test'
                 cleanWs()
-            }
+	        }
+	     }
         }
         stage('02 - Package') {
             steps {
