@@ -36,14 +36,9 @@ pipeline {
         }
       }
     }
-//    stage('Remove Unused docker image') {
-//      steps{
-//        sh "docker rmi $registry:$BUILD_NUMBER"
-//      }
-//    }
-   stage(‘Docker Purge’) {
+   stage('Docker Purge') {
      steps {
-     sh ‘docker image prune -fa’
+     sh 'docker image prune -fa'
      deleteDir()
      }
    }
