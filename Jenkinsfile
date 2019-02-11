@@ -1,4 +1,9 @@
 pipeline {
+    environment {
+            registry = 'anishkaippilly/tomcat-workshop'
+            registryCredential = ‘dockerhub’
+            dockerImage = ''
+    }
     agent any
     tools {
         maven 'MVN'
@@ -10,7 +15,6 @@ pipeline {
                 sh 'mvn clean test'
                 cleanWs()
 	        }
-//	     }
         }
         stage('02 - Package') {
             steps {
@@ -19,11 +23,6 @@ pipeline {
             }
         }
         stage('03 - Build Image') {
-	    environment {
- 	    registry = 'anishkaippilly/tomcat-workshop'
-    	    registryCredential = ‘dockerhub’
-	    dockerImage = ''
-	    }
 	   
             steps {
 		script {
@@ -37,15 +36,15 @@ pipeline {
           		docker.withRegistry( '', registryCredential ) {
             		dockerImage.push()
           		}
-        	  }
-      		}
-    	   }
+        	}
+      	     }
+    	}
 
-	    stage('05 - Remove Unused docker image') {
+	stage('05 - Remove Unused docker image') {
       		steps{
         	     sh "docker rmi $registry:$BUILD_NUMBER"
-      		     }
-                }
+      		}
+         }
 
 //                sh 'docker build -t anishkaippilly/tomcat .'
 //		sh 'docker stop tomcat'
