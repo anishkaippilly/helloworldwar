@@ -36,10 +36,19 @@ pipeline {
         }
       }
     }
-    stage('Remove Unused docker image') {
-      steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
-      }
-    }
+//    stage('Remove Unused docker image') {
+//      steps{
+//        sh "docker rmi $registry:$BUILD_NUMBER"
+//      }
+//    }
+   stage(‘Docker Purge’) {
+     steps {
+     sh ‘docker image prune -fa’
+     deleteDir()
+     }
+   }
+   stage('Start Docker'){
+     steps {
+     sh 'docker run -d -p 8090:8090 --name tomcat anishkaippilly/tomcat-workshop":$BUILD_NUMBER"
   }
 }
