@@ -1,9 +1,9 @@
 pipeline {
-    environment {
-            registry = 'anishkaippilly/tomcat-workshop'
-            registryCredential = ‘dockerhub’
-            dockerImage = ''
-    }
+//    environment {
+//            registry = 'anishkaippilly/tomcat-workshop'
+//            registryCredential = ‘dockerhub’
+//            dockerImage = ''
+//    }
     agent any
     tools {
         maven 'MVN'
