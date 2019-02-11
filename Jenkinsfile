@@ -1,11 +1,11 @@
 pipeline {
   environment {
-    registry = "gustavoapolinario/docker-test"
+    registry = "anishkaippilly/tomcat-workshop"
     registryCredential = 'dockerhub'
     dockerImage = ''
   }
   agent any
-  tools {maven "MVN" }
+  tools {maven 'MVN' }
   stages {
     stage('Test') {
       steps {
@@ -16,6 +16,7 @@ pipeline {
     }
     stage('package') {
        steps {
+	 git 'https://github.com/anishkaippilly/helloworldwar.git'
          sh 'mvn package'
        }
     }
