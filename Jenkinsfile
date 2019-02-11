@@ -17,14 +17,38 @@ pipeline {
                 sh 'mvn package'
             }
         }
-        stage('03 - Deploy') {
+        stage('03 - Build Image') {
+	    environment {
+ 	    registry = "anishkaippilly/tomcat-workshop"
+    	    registryCredential = ‘dockerhub’
+	    dockerImage = ''
+	    }
+	   
             steps {
-//                sh 'curl -s --upload-file ${WORKSPACE}/target/argentum-web.war "http://${TOMCAT_CREDS_USR}:W}@${TOMCAT_URL}:8080/"'
-                sh 'docker build -t anishkaippilly/tomcat .'
-		sh 'docker stop tomcat'
-		sh 'docker rm tomcat'
-		sh 'docker run -d -p 8090:8080 --name tomcat anishkaippilly/tomcat'
-            }
-        }
+		script {
+			docker.build registry + ":$BUILD_NUMBER"
+		}
+    	stage('04 - Deploy Image') {
+      	     steps{
+        	script {
+          		docker.withRegistry( '', registryCredential ) {
+            		dockerImage.push()
+          		}
+        	  }
+      		}
+    	   }
+
+	    stage('05 - Remove Unused docker image') {
+      		steps{
+        	     sh "docker rmi $registry:$BUILD_NUMBER"
+      		     }
+                }
+
+//                sh 'docker build -t anishkaippilly/tomcat .'
+//		sh 'docker stop tomcat'
+//		sh 'docker rm tomcat'
+//		sh 'docker run -d -p 8090:8080 --name tomcat anishkaippilly/tomcat'
+//            }
+//        }
     }
 }
