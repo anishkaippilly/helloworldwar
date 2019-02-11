@@ -44,7 +44,7 @@ pipeline {
    }
    stage('Start Docker'){
      steps {
-     sh 'docker run -d -p 8090:8090 --name tomcat anishkaippilly/tomcat-workshop":$BUILD_NUMBER"
+     sh 'docker run -d -p 8090:8090 --name tomcat anishkaippilly/tomcat-workshop":$BUILD_NUMBER"'
      }
    }	
   }
