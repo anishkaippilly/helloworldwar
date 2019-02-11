@@ -52,6 +52,6 @@ pipeline {
 //		sh 'docker rm tomcat'
 //		sh 'docker run -d -p 8090:8080 --name tomcat anishkaippilly/tomcat'
 //            }
-        }
+//        }
     }
 }
