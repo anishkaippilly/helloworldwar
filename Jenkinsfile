@@ -10,7 +10,7 @@ pipeline {
                 sh 'mvn clean test'
                 cleanWs()
 	        }
-	     }
+//	     }
         }
         stage('02 - Package') {
             steps {
